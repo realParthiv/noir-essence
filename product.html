@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noir Essence - The Product</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #0c0c0c;
+            --color-secondary: #f5e6c8;
+            --color-accent: #c9a84c;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+        body {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            font-family: var(--font-body);
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+            color: var(--color-secondary);
+        }
+        .text-accent {
+            color: var(--color-accent);
+        }
+        .border-accent {
+            border-color: var(--color-accent);
+        }
+        .nav-link:hover {
+            color: var(--color-accent);
+            text-shadow: 0 0 5px var(--color-accent);
+        }
+        .cta-btn {
+            transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+        }
+        .sticky-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .section-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+        .footer-link {
+            transition: color 0.3s ease;
+        }
+        .footer-link:hover {
+            color: var(--color-accent);
+        }
+        .section-title {
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .product-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="canvas-wrap">
+        <canvas id="filmCanvas"></canvas>
+    </div>
+
+    <header class="sticky-nav bg-transparent py-6 px-8 absolute top-0 left-0 w-full">
+        <nav class="flex justify-between items-center w-full">
+            <div class="logo text-2xl font-bold font-display">
+                <a href="index.html" class="text-secondary hover:text-accent transition-colors">Noir Essence</a>
+            </div>
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Home</a></li>
+                <li><a href="product.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">The Scent</a></li>
+                <li><a href="about.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Our Philosophy</a></li>
+                <li><a href="contact.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Connect</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="relative min-h-screen overflow-hidden">
+
+        <section class="hero-section h-screen flex flex-col justify-center items-center text-center px-8">
+            <div class="content-wrapper w-full max-w-4xl mx-auto">
+                <p class="eyebrow text-sm font-light tracking-widest uppercase mb-2 text-accent opacity-0 translate-y-30">Liquid Shadows</p>
+                <h1 class="text-7xl font-bold mb-4 leading-tight opacity-0 translate-y-60">
+                    Noir Essence
+                </h1>
+                <p class="subtitle text-2xl font-light leading-relaxed mb-8 opacity-0 translate-y-40 max-w-2xl mx-auto">
+                    Unveil your signature. A fragrance born from the allure of midnight, crafted for the modern visionary.
+                </p>
+                <a href="#product-details" class="cta-btn inline-block py-3 px-8 border-2 border-accent text-accent font-semibold text-lg tracking-wide rounded-full hover:bg-accent hover:text-primary transition-all duration-500">
+                    Discover the Scent
+                </a>
+            </div>
+        </section>
+
+        <section id="product-details" class="section-wrapper py-24 px-8">
+            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="section-to-reveal">
+                    <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">The Olfactory Narrative</h2>
+                    <h3 class="text-4xl font-bold mb-6 leading-normal">
+                        Where Night Meets Sensation
+                    </h3>
+                    <p class="text-lg font-light leading-relaxed mb-6">
+                        Experience liquid shadows: crisp midnight air, smoky agarwood, velvet black roses. Noir Essence feels like weightless heavy silk, warming to a rich, resinous glow. It evokes bittersweet dark cacao and spices, a whispered secret of amber and musk. This is not just a fragrance; it's an extension of your most enigmatic self.
+                    </p>
+                    <p class="text-lg font-light leading-relaxed">
+                        Our philosophy: true elegance lingers. We blend ancient botanical wisdom with modern sensory design to capture the raw, dark beauty of the night.
+                    </p>
+                </div>
+                <div class="section-to-reveal flex justify-center">
+                    <img src="./images/noir-essence-bottle.png" alt="Noir Essence Bottle" class="w-full max-w-sm shadow-xl rounded-lg">
+                </div>
+            </div>
+        </section>
+
+        <section class="section-wrapper py-24 px-8 bg-black/30">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">Crafted for the Visionary</h2>
+                <h3 class="text-4xl font-bold mb-12 leading-normal">
+                    Your Signature, Elevated
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                    <div class="product-card p-8 border border-gray-700 rounded-lg shadow-lg">
+                        <h4 class="text-2xl font-bold mb-3">Modern Visionaries</h4>
+                        <p class="text-lg font-light leading-relaxed">
+                            For the discerning individual (25-45) who navigates the urban landscape with quiet power.
+                        </p>
+                    </div>
+                    <div class="product-card p-8 border border-gray-700 rounded-lg shadow-lg">
+                        <h4 class="text-2xl font-bold mb-3">Understated Luxury</h4>
+                        <p class="text-lg font-light leading-relaxed">
+                            Appreciates substance over spectacle, depth over overt display.
+                        </p>
+                    </div>
+                    <div class="product-card p-8 border border-gray-700 rounded-lg shadow-lg">
+                        <h4 class="text-2xl font-bold mb-3">Individuality</h4>
+                        <p class="text-lg font-light leading-relaxed">
+                            Seeks a scent that is deeply personal, a whisper of self, not a shout.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-wrapper py-24 px-8">
+            <div class="max-w-6xl mx-auto text-center">
+                <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">The Essence</h2>
+                <h3 class="text-4xl font-bold mb-12 leading-normal">
+                    A Symphony of Night Blooms and Shadows
+                </h3>
+                <div class="relative section-to-reveal">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                        <div class="text-left">
+                            <h4 class="text-3xl font-bold mb-6 leading-tight">
+                                The Signature Scent
+                            </h4>
+                            <p class="text-xl font-light leading-relaxed mb-6">
+                                A unique fragrance that evolves with skin chemistry, offering a multi-sensory depth of smoky agarwood, black roses, and dark cacao.
+                            </p>
+                            <p class="text-xl font-light leading-relaxed">
+                                <span class="text-accent font-semibold">Price Range:</span> Premium
+                            </p>
+                        </div>
+                        <div class="flex justify-center">
+                            <img src="./images/noir-essence-detail.png" alt="Fragrance Notes Detail" class="w-full max-w-md rounded-lg shadow-xl">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-wrapper py-24 px-8">
+            <div class="max-w-4xl mx-auto text-center">
+                <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">Where to Experience</h2>
+                <h3 class="text-4xl font-bold mb-12 leading-normal">
+                    Find Your Shadow
+                </h3>
+                <p class="text-xl font-light leading-relaxed">
+                    Noir Essence is available through select online channels and our curated retail partners. We invite you to experience the depth and mystique in person.
+                </p>
+                <div class="mt-12">
+                    <a href="#contact" class="cta-btn inline-block py-3 px-8 border-2 border-accent text-accent font-semibold text-lg tracking-wide rounded-full hover:bg-accent hover:text-primary transition-all duration-500">
+                        Inquire About Availability
+                    </a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="relative z-10 py-12 px-8 border-t border-gray-700">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
+            <div class="text-center md:text-left">
+                <p class="text-lg font-light">&copy; 2024 Noir Essence. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="https://www.instagram.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="footer-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Instagram</a>
+                <a href="https://www.facebook.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="footer-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Facebook</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+
+        const lenis = new Lenis();
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        const canvas = document.getElementById('filmCanvas');
+        const ctx = canvas.getContext('2d');
+        const totalFrames = 192;
+        const frames = [];
+        let currentFrame = 0;
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          drawFrame(currentFrame);
+        }
+
+        function drawFrame(index) {
+          const img = frames[index];
+          if (!img || !img.complete) return;
+          const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+          const x = (canvas.width - img.naturalWidth * scale) / 2;
+          const y = (canvas.height - img.naturalHeight * scale) / 2;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
+        }
+
+        function preloadFrames() {
+          let loaded = 0;
+          for (let i = 1; i <= totalFrames; i++) {
+            const img = new Image();
+            img.src = `./frames/${String(i).padStart(4, '0')}.jpg`;
+            img.onload = () => {
+              loaded++;
+              if (loaded === 1) {
+                resizeCanvas();
+              }
+              if (loaded === totalFrames) {
+                console.log('All frames preloaded.');
+              }
+            };
+            img.onerror = () => {
+              console.error(`Failed to load frame: ./frames/${String(i).padStart(4, '0')}.jpg`);
+            };
+            frames[i - 1] = img;
+          }
+        }
+
+        preloadFrames();
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        gsap.to({ frame: 0 }, {
+          frame: totalFrames - 1,
+          snap: "frame",
+          ease: "none",
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: () => "+=" + (window.innerHeight * 3), // Adjusted end for longer animation
+            scrub: 0.5,
+          },
+          onUpdate: function() {
+            currentFrame = Math.round(this.targets()[0].frame);
+            drawFrame(currentFrame);
+          }
+        });
+
+        // PAGE ENTRANCE TIMELINE
+        const pageLoadTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+        pageLoadTimeline.from("header", { y: -80, autoAlpha: 0, duration: 0.8 })
+                      .from(".eyebrow", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                      .from(".subtitle", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                      .from(".cta-btn", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+
+        // SPLITTEXT ON ALL HEADLINES
+        SplitText.create("h1, h2, h3", {
+          type: "chars, words",
+          mask: "chars",
+          autoSplit: true,
+          onSplit(self) {
+            gsap.from(self.chars, {
+              y: 100,
+              autoAlpha: 0,
+              stagger: 0.03,
+              duration: 0.8,
+              ease: "back.out(1.7)",
+              scrollTrigger: { trigger: self.elements[0], start: "top 85%", once: true }
+            });
+          }
+        });
+
+        // SCROLLTRIGGER.BATCH FOR ALL CARD GRIDS
+        ScrollTrigger.batch(".product-card", {
+          onEnter: batch => gsap.from(batch, {
+            opacity: 0,
+            y: 60,
+            scale: 0.95,
+            stagger: 0.15,
+            duration: 0.8,
+            ease: "power3.out"
+          }),
+          once: true
+        });
+
+        // CLIP-PATH SECTION REVEALS
+        gsap.from(".section-to-reveal", {
+          clipPath: "inset(100% 0% 0% 0%)",
+          duration: 1.2,
+          ease: "power4.inOut",
+          scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
+        });
+
+        // MAGNETIC CTA BUTTONS
+        document.querySelectorAll(".cta-btn").forEach(btn => {
+          btn.addEventListener("mousemove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+          });
+          btn.addEventListener("mouseleave", () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+          });
+        });
+
+    </script>
+</body>
+</html>
