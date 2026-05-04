@@ -10,7 +10,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <style>
         :root {
@@ -39,7 +38,10 @@
             color: var(--color-secondary);
         }
         .text-accent {
-            color: var(--color-accent);
+            color: var(--color-accent) !important;
+        }
+        .text-secondary {
+            color: var(--color-secondary) !important;
         }
         .border-accent {
             border-color: var(--color-accent);
@@ -182,28 +184,51 @@
 <body>
     <div class="canvas-wrap"><canvas id="filmCanvas"></canvas></div>
 
-    <header class="relative z-10 py-6 px-8 flex justify-between items-center absolute top-0 left-0 w-full">
-        <div class="text-xl font-bold font-display tracking-widest text-secondary">NOIR ESSENCE</div>
-        <nav>
+    <header class="py-4 md:py-6 px-4 md:px-8 flex justify-between items-center fixed top-0 left-0 w-full z-[100] backdrop-blur-md bg-black/60 border-b border-white/5">
+        <a href="index.html" class="text-lg md:text-xl font-bold font-display tracking-widest text-secondary hover:text-accent transition-colors">NOIR ESSENCE</a>
+        
+        <!-- Hamburger Button -->
+        <button id="menu-toggle" class="md:hidden text-accent focus:outline-none p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:block">
             <ul class="flex space-x-6">
-                <li class="nav-item"><a href="index.html" class="text-secondary hover:text-accent text-lg font-light">Home</a></li>
-                <li class="nav-item"><a href="product.html" class="text-secondary hover:text-accent text-lg font-light">Product</a></li>
-                <li class="nav-item"><a href="about.html" class="text-secondary hover:text-accent text-lg font-light">About</a></li>
-                <li class="nav-item"><a href="contact.html" class="text-secondary hover:text-accent text-lg font-light">Contact</a></li>
+                <li><a href="index.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Home</a></li>
+                <li><a href="product.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Product</a></li>
+                <li><a href="about.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">About</a></li>
+                <li><a href="contact.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Contact</a></li>
             </ul>
         </nav>
     </header>
+    
+    <!-- Mobile Menu Sidebar -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/70 z-[999] hidden md:hidden transition-opacity"></div>
+    <div id="mobile-menu" class="fixed top-0 right-0 w-[280px] h-full bg-[#000000] z-[1000] flex flex-col p-8 space-y-6 transform translate-x-full transition-transform duration-500 md:hidden border-l border-white/10 shadow-2xl" style="background-color: #000000 !important;">
+        <button id="menu-close" class="self-end text-accent text-3xl mb-8">&times;</button>
+        <nav class="flex flex-col space-y-6">
+            <a href="index.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Home</a>
+            <a href="product.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Product</a>
+            <a href="about.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">About</a>
+            <a href="contact.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Contact</a>
+        </nav>
+    </div>
 
     <section class="content-layer min-h-screen flex flex-col justify-center items-center">
-        <div class="text-center px-4">
-            <p class="text-accent text-lg font-light tracking-wider mb-2 opacity-0 initial-entrance-eyebrow">LIQUID SHADOWS</p>
-            <h1 class="hero-text text-7xl font-bold leading-tight mb-4 opacity-0 initial-entrance-h1">Noir Essence</h1>
-            <p class="hero-subtext text-secondary text-xl font-light leading-relaxed mb-8 opacity-0 initial-entrance-sub">For the Modern Visionary.</p>
-            <a href="product.html" class="cta-btn initial-entrance-cta">Discover the Scent</a>
+        <div class="text-center px-4 max-w-5xl mx-auto">
+            <p class="text-accent text-lg font-light tracking-widest mb-6 initial-entrance-eyebrow uppercase">The Olfactory Rebellion</p>
+            <h1 class="hero-text text-7xl md:text-9xl font-bold leading-tight mb-8 initial-entrance-h1">Noir Essence</h1>
+            <p class="hero-subtext text-secondary text-xl md:text-3xl font-light leading-relaxed mb-12 initial-entrance-sub italic">
+                Where Cold Air Meets Warm Shadows. A symphony of midnight jasmine and smoky agarwood, crafted for those who navigate the twilight.
+            </p>
+            <a href="product.html" class="cta-btn initial-entrance-cta py-4 px-12 text-xl">Enter the Night</a>
         </div>
     </section>
 
-    <section class="content-layer py-20 section-to-reveal">
+    <section class="content-layer py-20">
         <div class="container mx-auto px-4 text-center">
             <h2 class="section-title mb-4">Crafted from Moonlight, Woven into Shadows</h2>
             <p class="section-subtitle">Noir Essence crafts 'liquid shadows,' unique fragrances for modern visionaries. Our scents, born from moonlit moments, blend ancient wisdom with modern design for an understated, sophisticated, and deeply personal signature.</p>
@@ -224,23 +249,138 @@
         </div>
     </section>
 
-    <section class="content-layer py-20 section-to-reveal">
+    <section class="content-layer py-24">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-center mb-16 text-accent">The Nocturnal Collection</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+                <div class="card work-card group">
+                    <div class="mb-6 overflow-hidden rounded-sm">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRy7RGnGMauQ-X0h8W0O7KTtxTdIETd13Ijw&s" alt="Velvet Shadow" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Velvet Shadow</h3>
+                    <p class="text-secondary/70 mb-6">A deep, resinous blend of Bulgarian rose and aged oud. Sensual, mysterious, and enduring.</p>
+                    <a href="product.html" class="text-accent hover:tracking-widest transition-all">Explore Scent &rarr;</a>
+                </div>
+                <div class="card work-card group">
+                    <div class="mb-6 overflow-hidden rounded-sm">
+                        <img src="https://www.dindinaturals.com.au/cdn/shop/files/night_bloom_perfume.png?v=1774250454&width=1080" alt="Midnight Bloom" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Midnight Bloom</h3>
+                    <p class="text-secondary/70 mb-6">Crisp jasmine and night-blooming cereus. An ethereal floral that whispers of secret gardens.</p>
+                    <a href="product.html" class="text-accent hover:tracking-widest transition-all">Explore Scent &rarr;</a>
+                </div>
+                <div class="card work-card group">
+                    <div class="mb-6 overflow-hidden rounded-sm">
+                        <img src="https://mabelleorama.com/cdn/shop/files/lunar-dust-834087.jpg?v=1725654685&width=1080" alt="Lunar Dust" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4">Lunar Dust</h3>
+                    <p class="text-secondary/70 mb-6">Earthy vetiver and smoky sandalwood. The scent of ancient moonlit paths and quiet wisdom.</p>
+                    <a href="product.html" class="text-accent hover:tracking-widest transition-all">Explore Scent &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-layer py-24 bg-black/40">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="section-title mb-4">The Signature Unveiled</h2>
-            <p class="section-subtitle">A fragrance designed to be an extension of your inner self, a whispered secret, a unique olfactory signature.</p>
-            <div class="max-w-3xl mx-auto">
-                <p class="text-lg leading-relaxed mb-6">Our Noir Essence Signature Scent is a symphony of rare ingredients. Top notes of crisp bergamot and dark violet transition into a heart of black rose and smoky oud. The base unfolds with rich amber, dark cacao, and a hint of rare musk, creating an enduring and unforgettable trail.</p>
-                <a href="product.html" class="cta-btn">Explore the Notes</a>
+            <h2 class="section-title mb-8">The Sensory Experience</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+                <div class="text-left space-y-8">
+                    <div>
+                        <h4 class="text-accent text-xl font-bold mb-2">01. Visual Echoes</h4>
+                        <p>Our bottles are pieces of architectural art, designed to play with light and shadow on your vanity.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-accent text-xl font-bold mb-2">02. Olfactory Depth</h4>
+                        <p>Each spray releases a narrative arc—top notes that sparkle, hearts that bloom, and bases that linger.</p>
+                    </div>
+                    <div>
+                        <h4 class="text-accent text-xl font-bold mb-2">03. Eternal Signature</h4>
+                        <p>Formulated with the highest concentration of rare essences for a scent that evolves with you for 12+ hours.</p>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute -inset-4 border border-accent/30 rounded-full animate-pulse"></div>
+                    <img src="./frames/0051.jpg" alt="The Ritual" class="rounded-full w-80 h-80 object-cover mx-auto">
+                </div>
+    </section>
+
+    <section class="content-layer py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="section-title mb-16">Voices of the Night</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div class="card p-12 italic text-lg leading-relaxed">
+                    "Noir Essence is not just a perfume; it's a mood. It gives me a sense of quiet confidence that I haven't found in any other signature scent."
+                    <span class="block mt-6 font-bold font-display not-italic text-accent">— Elena V., Architect</span>
+                </div>
+                <div class="card p-12 italic text-lg leading-relaxed">
+                    "The way Lunar Dust settles on the skin is magical. It's sophisticated, mysterious, and perfectly understated for someone who values substance."
+                    <span class="block mt-6 font-bold font-display not-italic text-accent">— Marcus T., Creative Director</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-layer py-24 bg-black/40">
+        <div class="container mx-auto px-4">
+            <div class="mb-16">
+                <div class="text-left">
+                    <h2 class="section-title mb-4">The Nocturnal Journal</h2>
+                    <p class="opacity-60 max-w-xl">Musings on scent, shadow, and the art of modern vision.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <article class="group cursor-pointer">
+                    <div class="mb-6 overflow-hidden rounded-sm aspect-[16/9]">
+                        <img src="https://mir-s3-cdn-cf.behance.net/project_modules/max_632_webp/1eb89d67395439.5b4ecb6aaf97f.jpg" alt="Article 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                    </div>
+                    <span class="text-accent text-sm tracking-widest uppercase mb-4 block">Olfactory Theory</span>
+                    <h3 class="text-3xl font-bold mb-4 group-hover:text-accent transition-colors">The Psychology of Scent at Midnight</h3>
+                    <p class="opacity-70 leading-relaxed">Why do certain notes resonate more deeply in the quiet hours? Exploring the link between nocturnal stillness and sensory perception.</p>
+                </article>
+                <article class="group cursor-pointer">
+                    <div class="mb-6 overflow-hidden rounded-sm aspect-[16/9]">
+                        <img src="https://www.packamor.com/cdn/shop/articles/choosing-the-ideal-perfume-bottles-for-your-new-fragrance-a-strategic-guide-packamor.jpg?v=1753369440&width=1100" alt="Article 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                    </div>
+                    <span class="text-accent text-sm tracking-widest uppercase mb-4 block">Brand Story</span>
+                    <h3 class="text-3xl font-bold mb-4 group-hover:text-accent transition-colors">Sourcing the Rare Midnight Jasmine</h3>
+                    <p class="opacity-70 leading-relaxed">An expedition into the heart of the Himalayas, where the world's most potent night-blooms are harvested under the new moon.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-layer py-24">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="section-title mb-8">Global Boutiques</h2>
+            <p class="opacity-60 mb-16 max-w-2xl mx-auto">Experience the allure in person at our curated flagship locations across the world's most vibrant metropolitan shadows.</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-xl font-bold mb-2">New York</h4>
+                    <p class="text-sm opacity-50 uppercase tracking-tighter">Tribeca District</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-2">London</h4>
+                    <p class="text-sm opacity-50 uppercase tracking-tighter">Mayfair Mews</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-2">Tokyo</h4>
+                    <p class="text-sm opacity-50 uppercase tracking-tighter">Aoyama Shadows</p>
+                </div>
+                <div>
+                    <h4 class="text-xl font-bold mb-2">Paris</h4>
+                    <p class="text-sm opacity-50 uppercase tracking-tighter">Le Marais Night</p>
+                </div>
             </div>
         </div>
     </section>
 
     <footer class="footer">
         <div class="container mx-auto px-4">
-            <p>&copy; 2023 Noir Essence. All rights reserved.</p>
+            <p>&copy; <span id="year"></span> Noir Essence. All rights reserved.</p>
             <div class="flex justify-center mt-4 space-x-4">
                 <a href="https://www.instagram.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="social-link">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.002 1.999h.006v.006h-.006V1.999zm0 2.005c3.115 0 3.115 4.862 0 4.862s-3.115-4.862 0-4.862zm0 2.005c1.762 0 1.762 3.193 0 3.193s-1.762-3.193 0-3.193zm0 2.005c.943 0 .943 2.138 0 2.138s-.943-2.138 0-2.138zM19.703 3.002c-.756 0-1.367.609-1.367 1.367s.609 1.367 1.367 1.367 1.367-.609 1.367-1.367-.609-1.367-1.367-1.367zm-1.367 3.446a2.071 2.071 0 0 0-2.071 2.071 2.071 2.071 0 0 0 2.071 2.071 2.071 2.071 0 0 0 2.071-2.071 2.071 2.071 0 0 0-2.071-2.071zm0 2.071a.071.071 0 0 1-.071.071h.001a.071.071 0 0 1-.071-.071zm-3.255 3.584c-.456 0-.82.365-.82.82s.365.82.82.82.82-.365.82-.82-.365-.82-.82-.82zm-.82 1.236a.071.071 0 0 0-.071.071c0 .039.032.071.071.071.039 0 .071-.032.071-.071a.071.071 0 0 0-.071-.071zm-3.092 1.236c-.456 0-.82.365-.82.82s.365.82.82.82.82-.365.82-.82-.365-.82-.82-.82zm-.82 1.236a.071.071 0 0 0-.071.071c0 .039.032.071.071.071.039 0 .071-.032.071-.071a.071.071 0 0 0-.071-.071zm-3.092 1.236c-.456 0-.82.365-.82.82s.365.82.82.82.82-.365.82-.82-.365-.82-.82-.82zm-.82 1.236a.071.071 0 0 0-.071.071c0 .039.032.071.071.071.039 0 .071-.032.071-.071a.071.071 0 0 0-.071-.071zm-3.092 1.236c-.456 0-.82.365-.82.82s.365.82.82.82.82-.365.82-.82-.365-.82-.82-.82zm-.82 1.236a.071.071 0 0 0-.071.071c0 .039.032.071.071.071.039 0 .071-.032.071-.071a.071.071 0 0 0-.071-.071zm4.408 3.913a.815.815 0 0 0-.815.815c0 .451.364.815.815.815.451 0 .815-.364.815-.815a.815.815 0 0 0-.815-.815zm0-1.63c.451 0 .815.364.815.815 0 .451-.364.815-.815.815-.451 0-.815-.364-.815-.815a.815.815 0 0 0 .815-.815zm-1.63 0a.815.815 0 0 0-.815.815c0 .451.364.815.815.815.451 0 .815-.364.815-.815a.815.815 0 0 0-.815-.815zm0-1.63c.451 0 .815.364.815.815 0 .451-.364.815-.815.815-.451 0-.815-.364-.815-.815a.815.815 0 0 0 .815-.815zm-1.63 0a.815.815 0 0 0-.815.815c0 .451.364.815.815.815.451 0 .815-.364.815-.815a.815.815 0 0 0-.815-.815zm0-1.63c.451 0 .815.364.815.815 0 .451-.364.815-.815.815-.451 0-.815-.364-.815-.815a.815.815 0 0 0 .815-.815zm-1.63 0a.815.815 0 0 0-.815.815c0 .451.364.815.815.815.451 0 .815-.364.815-.815a.815.815 0 0 0-.815-.815zm-1.63 0a.815.815 0 0 0-.815.815c0 .451.364.815.815.815.451 0 .815-.364.815-.815a.815.815 0 0 0-.815-.815z"/></svg>
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
                 <a href="https://www.facebook.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="social-link">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.906 3.579 8.977 8.292 9.905v-6.798H7.733v-3.107h2.559v-1.97c0-2.529 1.492-3.919 3.791-3.919 1.085 0 2.055.077 2.333.112v2.804h-1.592c-1.248 0-1.488.767-1.488 1.448v1.872h3.231l-.444 3.107h-2.787v6.798c4.712-.927 8.292-4.998 8.292-9.905z"/></svg>
@@ -274,7 +414,8 @@
 
         function preloadFrames() {
             let loaded = 0;
-            for (let i = 1; i <= totalFrames; i++) {
+            // Skipping first two black frames
+            for (let i = 3; i <= totalFrames; i++) {
                 const img = new Image();
                 img.src = `./frames/${String(i).padStart(4, '0')}.jpg`;
                 img.onload = () => {
@@ -283,7 +424,7 @@
                         resizeCanvas();
                     }
                 };
-                frames[i - 1] = img;
+                frames[i - 3] = img;
             }
         }
 
@@ -291,7 +432,38 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        gsap.registerPlugin(ScrollTrigger, SplitText);
+        gsap.registerPlugin(ScrollTrigger);
+
+        // SplitText Polyfill for GSAP
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/\s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
+                });
+            }
+        };
 
         const lenis = new Lenis();
         lenis.on('scroll', ScrollTrigger.update);
@@ -300,7 +472,7 @@
 
         // Cinematic Frame Animation
         gsap.to({ frame: 0 }, {
-            frame: totalFrames - 1,
+            frame: totalFrames - 3,
             snap: "frame",
             ease: "none",
             scrollTrigger: {
@@ -315,51 +487,42 @@
             }
         });
 
-        // Page Entrance Timeline
-        const pageEntranceTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-        pageEntranceTimeline
-            .from("header", { y: -80, autoAlpha: 0, duration: 0.8 })
-            .from(".initial-entrance-eyebrow", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
-            .from(".initial-entrance-h1", { y: 60, autoAlpha: 0, duration: 0.8 }, "-=0.4")
-            .from(".initial-entrance-sub", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
-            .from(".initial-entrance-cta", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
 
-        // SplitText on Headlines
-        SplitText.create("h1, h2", {
-            type: "chars, words",
-            mask: "chars",
-            autoSplit: true,
-            onSplit(self) {
-                gsap.from(self.chars, {
-                    y: 100,
-                    autoAlpha: 0,
-                    stagger: 0.03,
-                    duration: 0.8,
-                    ease: "back.out(1.7)",
-                    scrollTrigger: { trigger: self.elements[0], start: "top 85%", once: true }
-                });
-            }
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            menuOverlay.classList.toggle('hidden');
+        }
+
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
+
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
         });
 
-        // ScrollTrigger.batch for Card Grids
-        ScrollTrigger.batch(".work-card", {
-            onEnter: (batch) => gsap.from(batch, {
+        // Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // SLOW TEXT APPEARANCE (Fade-in stagger)
+        gsap.utils.toArray('h1, h2, h3, .section-subtitle, .work-card').forEach(el => {
+            gsap.from(el, {
+                y: 30,
                 opacity: 0,
-                y: 60,
-                scale: 0.95,
-                stagger: 0.15,
-                duration: 0.8,
-                ease: "power3.out"
-            }),
-            once: true
-        });
-
-        // Clip-Path Section Reveals
-        gsap.from(".section-to-reveal", {
-            clipPath: "inset(100% 0% 0% 0%)",
-            duration: 1.2,
-            ease: "power4.inOut",
-            scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    once: true
+                }
+            });
         });
 
         // Magnetic CTA Buttons

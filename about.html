@@ -10,12 +10,11 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <style>
         :root {
             --color-primary: #0c0c0c;
-            --color-secondary: #111111;
+            --color-secondary: #f5e6c8;
             --color-accent: #c9a84c;
             --color-text: #f5e6c8;
             --font-display: 'Playfair Display', serif;
@@ -43,8 +42,13 @@
             position: relative;
             z-index: 10;
         }
-        .section-to-reveal {
-            clip-path: inset(100% 0% 0% 0%);
+        .bg-secondary { background-color: var(--color-secondary) !important; }
+        .text-primary { color: var(--color-primary) !important; }
+        .text-accent {
+            color: var(--color-accent) !important;
+        }
+        .text-secondary {
+            color: var(--color-secondary) !important;
         }
         .btn-primary, .cta-btn {
             transition: all 0.3s ease;
@@ -57,63 +61,126 @@
 <body>
     <div class="canvas-wrap"><canvas id="filmCanvas"></canvas></div>
 
-    <nav class="fixed top-0 left-0 w-full py-6 px-8 flex justify-between items-center z-20 text-lg font-medium content-layer">
-        <a href="index.html" class="text-2xl font-bold text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">Noir Essence</a>
-        <div class="flex space-x-8">
-            <a href="index.html" class="nav-link text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">Home</a>
-            <a href="product.html" class="nav-link text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">Product</a>
-            <a href="about.html" class="nav-link text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">About</a>
-            <a href="contact.html" class="nav-link text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">Contact</a>
-        </div>
-    </nav>
+    <header class="py-4 md:py-6 px-4 md:px-8 flex justify-between items-center fixed top-0 left-0 w-full z-[100] backdrop-blur-md bg-black/60 border-b border-white/5">
+        <a href="index.html" class="text-lg md:text-xl font-bold font-display tracking-widest text-secondary hover:text-accent transition-colors">NOIR ESSENCE</a>
+        
+        <!-- Hamburger Button -->
+        <button id="menu-toggle" class="md:hidden text-accent focus:outline-none p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
+
+        <!-- Desktop Menu -->
+        <nav class="hidden md:block">
+            <ul class="flex space-x-6">
+                <li><a href="index.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Home</a></li>
+                <li><a href="product.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Product</a></li>
+                <li><a href="about.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">About</a></li>
+                <li><a href="contact.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu Sidebar -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/70 z-[999] hidden md:hidden transition-opacity"></div>
+    <div id="mobile-menu" class="fixed top-0 right-0 w-[280px] h-full bg-[#000000] z-[1000] flex flex-col p-8 space-y-6 transform translate-x-full transition-transform duration-500 md:hidden border-l border-white/10 shadow-2xl" style="background-color: #000000 !important;">
+        <button id="menu-close" class="self-end text-accent text-3xl mb-8">&times;</button>
+        <nav class="flex flex-col space-y-6">
+            <a href="index.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Home</a>
+            <a href="product.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Product</a>
+            <a href="about.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">About</a>
+            <a href="contact.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Contact</a>
+        </nav>
+    </div>
 
     <main class="content-layer">
-        <section class="min-h-screen flex flex-col justify-center items-center text-center px-8 relative overflow-hidden">
-            <div class="mb-4 text-sm uppercase tracking-wider text-[var(--color-accent)]" data-text-reveal="eyebrow">The Essence of Shadow</div>
-            <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight" data-text-reveal="h1">
+        <section class="min-h-screen flex flex-col justify-center items-center text-center px-8 relative z-10 overflow-hidden">
+            <div class="mb-4 text-sm uppercase tracking-wider text-accent">The Essence of Shadow</div>
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 leading-tight text-accent">
                 Liquid Shadows.
             </h1>
-            <p class="text-xl md:text-2xl max-w-3xl mb-8 leading-relaxed" data-text-reveal="subtitle">
+            <p class="text-xl md:text-2xl max-w-3xl mb-8 leading-relaxed text-secondary/80">
                 Crafted for those who navigate the twilight, weaving innovation with an intrinsic sense of self.
             </p>
-            <a href="product.html" class="cta-btn inline-block px-8 py-3 text-lg font-semibold border-2 border-[var(--color-accent)] text-[var(--color-text)] hover:bg-[var(--color-accent)] hover:text-[var(--color-primary)] transition-all duration-300" data-text-reveal="cta">Discover Your Shadow</a>
+            <a href="product.html" class="cta-btn inline-block px-8 py-3 text-lg font-semibold border-2 border-accent text-accent hover:bg-accent hover:text-primary transition-all duration-300">Discover Your Shadow</a>
         </section>
 
-        <section class="py-24 px-8 bg-[var(--color-secondary)] relative section-to-reveal">
+        <section class="py-24 px-8 bg-secondary relative text-primary">
             <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                 <div>
-                    <h2 class="text-5xl font-bold mb-8" data-text-reveal="h2">Our Philosophy</h2>
+                    <h2 class="text-5xl font-bold mb-8 text-primary">Our Philosophy</h2>
                     <p class="text-lg mb-6 leading-relaxed">Born from a quest to bottle the scent of a moonlit world where cold air meets warm shadows. Our philosophy: true elegance lingers. We blend ancient botanical wisdom with modern sensory design to capture the raw, dark beauty of the night.</p>
                     <p class="text-lg leading-relaxed">We believe fragrance is not merely worn, but experienced. It's an extension of self, a silent declaration of intent, a whisper in the quiet moments.</p>
                 </div>
                 <div class="relative">
-                    <div class="absolute inset-0 border-2 border-[var(--color-accent)] opacity-50"></div>
-                    <img src="./placeholder_image_for_about.jpg" alt="Noir Essence Bottle" class="relative w-full h-auto shadow-xl">
+                    <div class="absolute inset-0 border-2 border-accent opacity-50"></div>
+                    <img src="https://media.istockphoto.com/id/1448474882/photo/man-in-suit-using-perfume.jpg?s=612x612&w=0&k=20&c=wHbIkipqMOMfBYO9nfe9rZIkoxrEHWTd9ayST5ZctdY=" alt="Noir Essence Philosophy" class="relative w-full h-auto shadow-xl">
                 </div>
             </div>
         </section>
 
-        <section class="py-24 px-8 text-center relative section-to-reveal">
-            <h2 class="text-5xl font-bold mb-12" data-text-reveal="h2">The Visionary</h2>
-            <div class="max-w-3xl mx-auto">
-                <p class="text-xl mb-8 leading-relaxed">Noir Essence is for the modern visionary: the creators, the thinkers, the silent leaders. They are the ones who appreciate understated luxury, intellectual depth, and the quiet power of individuality. Their presence is felt, not announced.</p>
-                <p class="text-lg leading-relaxed">They are the urban sophisticates, the artists of their own lives, who seek substance and a signature that is uniquely their own. They understand that true influence is often found in the shadows.</p>
+        <section class="py-24 px-8 text-center relative z-10">
+            <h2 class="text-5xl font-bold mb-12 text-accent">The Visionary</h2>
+            <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="text-left">
+                    <p class="text-xl mb-8 leading-relaxed">Noir Essence is for the modern visionary: the creators, the thinkers, the silent leaders. They are the ones who appreciate understated luxury, intellectual depth, and the quiet power of individuality. Their presence is felt, not announced.</p>
+                    <p class="text-lg leading-relaxed italic opacity-70">"True influence is not found in the spotlight, but in the lingering presence of a signature scent."</p>
+                </div>
+                <div class="bg-accent/10 p-8 border-l-4 border-accent">
+                    <h4 class="text-2xl font-bold mb-4">Our Commitment</h4>
+                    <p>Every bottle of Noir Essence is a pledge to quality. We harvest our ingredients during specific lunar cycles to ensure the highest potency of nocturnal blooms.</p>
+                </div>
             </div>
         </section>
 
-        <section class="py-24 px-8 bg-[var(--color-secondary)] relative section-to-reveal">
+        <section class="py-24 px-8 relative z-10 bg-black/50">
             <div class="max-w-6xl mx-auto">
-                <h2 class="text-5xl font-bold text-center mb-16" data-text-reveal="h2">Craftsmanship</h2>
+                <h2 class="text-5xl font-bold text-center mb-16 text-accent">The Alchemy of Night</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+                    <div class="space-y-8">
+                        <div class="flex gap-6">
+                            <div class="text-4xl font-bold text-accent opacity-30">01</div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2">Lunar Harvesting</h4>
+                                <p>We source Jasmine Sambac and night-blooming Cereus only during the new moon for maximum olfactory depth.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="text-4xl font-bold text-accent opacity-30">02</div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2">Cold-Pressed Shadows</h4>
+                                <p>Our proprietary extraction method preserves the 'dark' molecules of resins and woods without heat damage.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6">
+                            <div class="text-4xl font-bold text-accent opacity-30">03</div>
+                            <div>
+                                <h4 class="text-2xl font-bold mb-2">Aged Resilience</h4>
+                                <p>Each batch of Noir Essence matures for six months in obsidian vessels before bottling.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="rounded-sm border border-accent/20 overflow-hidden">
+                        <img src="https://cdn.sanity.io/images/k7aa4gdi/production/c92b987c933dfeb1edfb2a02ed47a13ac542c24e-2000x1333.jpg?q=100&fit=max&auto=format" alt="The Laboratory" class="w-full h-full object-cover">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-24 px-8 bg-secondary relative text-primary">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="text-5xl font-bold text-center mb-16 text-primary">Craftsmanship</h2>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="work-card text-center p-8 border border-[var(--color-accent)] border-opacity-30 hover:border-opacity-70 transition-all duration-300">
+                    <div class="work-card text-center p-8 border border-accent border-opacity-30 hover:border-opacity-70 transition-all duration-300">
                         <h4 class="text-2xl font-bold mb-4">Ingredient Purity</h4>
                         <p class="text-lg leading-relaxed">Sourcing the rarest botanicals, harvested under specific lunar phases for peak essence.</p>
                     </div>
-                    <div class="work-card text-center p-8 border border-[var(--color-accent)] border-opacity-30 hover:border-opacity-70 transition-all duration-300">
+                    <div class="work-card text-center p-8 border border-accent border-opacity-30 hover:border-opacity-70 transition-all duration-300">
                         <h4 class="text-2xl font-bold mb-4">Artisanal Blending</h4>
                         <p class="text-lg leading-relaxed">Each scent is meticulously hand-blended by master perfumers, a symphony of notes.</p>
                     </div>
-                    <div class="work-card text-center p-8 border border-[var(--color-accent)] border-opacity-30 hover:border-opacity-70 transition-all duration-300">
+                    <div class="work-card text-center p-8 border border-accent border-opacity-30 hover:border-opacity-70 transition-all duration-300">
                         <h4 class="text-2xl font-bold mb-4">Modern Alchemy</h4>
                         <p class="text-lg leading-relaxed">Combining ancient wisdom with cutting-edge olfactory science for unparalleled depth.</p>
                     </div>
@@ -126,7 +193,7 @@
                 <a href="https://www.instagram.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">Instagram</a>
                 <a href="https://www.facebook.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="text-[var(--color-text)] hover:text-[var(--color-accent)] transition-colors">Facebook</a>
             </div>
-            <p class="text-lg text-[var(--color-text)] opacity-70">&copy; 2023 Noir Essence. All rights reserved.</p>
+            <p>&copy; <span id="year"></span> Noir Essence. All rights reserved.</p>
         </footer>
     </main>
 
@@ -155,7 +222,8 @@
 
         function preloadFrames() {
             let loaded = 0;
-            for (let i = 1; i <= totalFrames; i++) {
+            // Skipping first two black frames
+            for (let i = 3; i <= totalFrames; i++) {
                 const img = new Image();
                 img.src = `./frames/${String(i).padStart(4, '0')}.jpg`;
                 img.onload = () => {
@@ -164,7 +232,7 @@
                         resizeCanvas();
                     }
                 };
-                frames[i - 1] = img;
+                frames[i - 3] = img;
             }
         }
 
@@ -177,66 +245,64 @@
         gsap.ticker.add((time) => lenis.raf(time * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        gsap.registerPlugin(ScrollTrigger, SplitText);
+        gsap.registerPlugin(ScrollTrigger);
 
-        const pageLoadTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-
-        pageLoadTimeline.from("nav", { y: -80, autoAlpha: 0, duration: 0.8 })
-                        .from("[data-text-reveal='eyebrow']", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
-                        .from("[data-text-reveal='subtitle']", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
-                        .from("[data-text-reveal='cta']", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
-
-        SplitText.create("h1, h2", {
-            type: "chars, words",
-            mask: "chars",
-            autoSplit: true,
-            onSplit(self) {
-                return gsap.from(self.chars, {
-                    y: 100,
-                    autoAlpha: 0,
-                    stagger: 0.03,
-                    duration: 0.8,
-                    ease: "back.out(1.7)",
-                    scrollTrigger: { trigger: self.elements[0], start: "top 85%", once: true }
+        // SplitText Polyfill for GSAP
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/\s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
                 });
             }
-        });
+        };
 
-        ScrollTrigger.batch(".work-card", {
-            onEnter: (batch) => gsap.from(batch, {
-                opacity: 0,
-                y: 60,
-                scale: 0.95,
-                stagger: 0.15,
-                duration: 0.8,
-                ease: "power3.out"
-            }),
-            once: true
-        });
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
 
-        gsap.utils.toArray('.section-to-reveal').forEach(section => {
-            gsap.from(section, {
-                clipPath: "inset(100% 0% 0% 0%)",
-                duration: 1.2,
-                ease: "power4.inOut",
-                scrollTrigger: { trigger: section, start: "top 80%", once: true }
-            });
-        });
+        if (menuToggle && menuClose && mobileMenu && menuOverlay) {
+            function toggleMenu() {
+                mobileMenu.classList.toggle('translate-x-full');
+                menuOverlay.classList.toggle('hidden');
+            }
 
-        document.querySelectorAll(".cta-btn").forEach(btn => {
-            btn.addEventListener("mousemove", (e) => {
-                const rect = btn.getBoundingClientRect();
-                const x = e.clientX - rect.left - rect.width / 2;
-                const y = e.clientY - rect.top - rect.height / 2;
-                gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+            menuToggle.addEventListener('click', toggleMenu);
+            menuClose.addEventListener('click', toggleMenu);
+            menuOverlay.addEventListener('click', toggleMenu);
+
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', toggleMenu);
             });
-            btn.addEventListener("mouseleave", () => {
-                gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
-            });
-        });
+        }
+
+        // Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
 
         gsap.to({ frame: 0 }, {
-            frame: totalFrames - 1,
+            frame: totalFrames - 3,
             snap: "frame",
             ease: "none",
             scrollTrigger: {
