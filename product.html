@@ -10,7 +10,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
     <style>
         :root {
@@ -30,10 +29,16 @@
             color: var(--color-secondary);
         }
         .text-accent {
-            color: var(--color-accent);
+            color: var(--color-accent) !important;
+        }
+        .text-secondary {
+            color: var(--color-secondary) !important;
         }
         .border-accent {
             border-color: var(--color-accent);
+        }
+        .section-to-reveal {
+            clip-path: inset(100% 0% 0% 0%);
         }
         .nav-link:hover {
             color: var(--color-accent);
@@ -72,33 +77,48 @@
 </head>
 <body>
 
-    <div class="canvas-wrap">
-        <canvas id="filmCanvas"></canvas>
-    </div>
+    <header class="py-4 md:py-6 px-4 md:px-8 flex justify-between items-center fixed top-0 left-0 w-full z-[100] backdrop-blur-md bg-black/60 border-b border-white/5">
+        <a href="index.html" class="text-lg md:text-xl font-bold font-display tracking-widest text-secondary hover:text-accent transition-colors">NOIR ESSENCE</a>
+        
+        <!-- Hamburger Button -->
+        <button id="menu-toggle" class="md:hidden text-accent focus:outline-none p-2">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+        </button>
 
-    <header class="sticky-nav bg-transparent py-6 px-8 absolute top-0 left-0 w-full">
-        <nav class="flex justify-between items-center w-full">
-            <div class="logo text-2xl font-bold font-display">
-                <a href="index.html" class="text-secondary hover:text-accent transition-colors">Noir Essence</a>
-            </div>
+        <!-- Desktop Menu -->
+        <nav class="hidden md:block">
             <ul class="flex space-x-6">
-                <li><a href="index.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Home</a></li>
-                <li><a href="product.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">The Scent</a></li>
-                <li><a href="about.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Our Philosophy</a></li>
-                <li><a href="contact.html" class="nav-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Connect</a></li>
+                <li><a href="index.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Home</a></li>
+                <li><a href="product.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Product</a></li>
+                <li><a href="about.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">About</a></li>
+                <li><a href="contact.html" class="text-secondary hover:text-accent text-lg font-light transition-colors">Contact</a></li>
             </ul>
         </nav>
     </header>
 
+    <!-- Mobile Menu Sidebar -->
+    <div id="menu-overlay" class="fixed inset-0 bg-black/70 z-[999] hidden md:hidden transition-opacity"></div>
+    <div id="mobile-menu" class="fixed top-0 right-0 w-[280px] h-full bg-[#000000] z-[1000] flex flex-col p-8 space-y-6 transform translate-x-full transition-transform duration-500 md:hidden border-l border-white/10 shadow-2xl" style="background-color: #000000 !important;">
+        <button id="menu-close" class="self-end text-accent text-3xl mb-8">&times;</button>
+        <nav class="flex flex-col space-y-6">
+            <a href="index.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Home</a>
+            <a href="product.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Product</a>
+            <a href="about.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">About</a>
+            <a href="contact.html" class="text-xl font-bold text-secondary hover:text-accent transition-colors border-b border-white/5 pb-4">Contact</a>
+        </nav>
+    </div>
+
     <main class="relative min-h-screen overflow-hidden">
 
-        <section class="hero-section h-screen flex flex-col justify-center items-center text-center px-8">
+        <section class="hero-section h-screen flex flex-col justify-center items-center text-center px-8 relative z-10">
             <div class="content-wrapper w-full max-w-4xl mx-auto">
-                <p class="eyebrow text-sm font-light tracking-widest uppercase mb-2 text-accent opacity-0 translate-y-30">Liquid Shadows</p>
-                <h1 class="text-7xl font-bold mb-4 leading-tight opacity-0 translate-y-60">
+                <p class="eyebrow text-sm font-light tracking-widest uppercase mb-2 text-accent">Liquid Shadows</p>
+                <h1 class="text-7xl font-bold mb-4 leading-tight">
                     Noir Essence
                 </h1>
-                <p class="subtitle text-2xl font-light leading-relaxed mb-8 opacity-0 translate-y-40 max-w-2xl mx-auto">
+                <p class="subtitle text-2xl font-light leading-relaxed mb-8 max-w-2xl mx-auto">
                     Unveil your signature. A fragrance born from the allure of midnight, crafted for the modern visionary.
                 </p>
                 <a href="#product-details" class="cta-btn inline-block py-3 px-8 border-2 border-accent text-accent font-semibold text-lg tracking-wide rounded-full hover:bg-accent hover:text-primary transition-all duration-500">
@@ -107,50 +127,49 @@
             </div>
         </section>
 
-        <section id="product-details" class="section-wrapper py-24 px-8">
-            <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div class="section-to-reveal">
-                    <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">The Olfactory Narrative</h2>
+        <section id="product-details" class="section-wrapper py-24 px-8 relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="relative z-10">
+                    <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest text-accent">The Olfactory Narrative</h2>
                     <h3 class="text-4xl font-bold mb-6 leading-normal">
                         Where Night Meets Sensation
                     </h3>
-                    <p class="text-lg font-light leading-relaxed mb-6">
-                        Experience liquid shadows: crisp midnight air, smoky agarwood, velvet black roses. Noir Essence feels like weightless heavy silk, warming to a rich, resinous glow. It evokes bittersweet dark cacao and spices, a whispered secret of amber and musk. This is not just a fragrance; it's an extension of your most enigmatic self.
+                    <p class="text-lg leading-relaxed mb-6 opacity-80">
+                        Noir Essence is not a fragrance; it is a signature of the soul. Crafted for the nocturnal, it opens with a crisp, moonlit chill of Midnight Jasmine and Cereus, evolving into a heart of velvet Black Rose and Labdanum.
                     </p>
-                    <p class="text-lg font-light leading-relaxed">
-                        Our philosophy: true elegance lingers. We blend ancient botanical wisdom with modern sensory design to capture the raw, dark beauty of the night.
-                    </p>
-                </div>
-                <div class="section-to-reveal flex justify-center">
-                    <img src="./images/noir-essence-bottle.png" alt="Noir Essence Bottle" class="w-full max-w-sm shadow-xl rounded-lg">
+                    <div class="grid grid-cols-2 gap-8 mt-12 max-w-2xl mx-auto">
+                        <div>
+                            <h4 class="text-accent font-bold uppercase tracking-widest text-xs mb-2">Top Notes</h4>
+                            <p class="text-sm opacity-70">Midnight Jasmine, Cold Air, Saffron</p>
+                        </div>
+                        <div>
+                            <h4 class="text-accent font-bold uppercase tracking-widest text-xs mb-2">Heart Notes</h4>
+                            <p class="text-sm opacity-70">Black Rose, Incense, Night Bloom</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <section class="section-wrapper py-24 px-8 bg-black/30">
+        <section class="section-wrapper py-24 px-8 bg-black/60 relative z-10">
             <div class="max-w-6xl mx-auto text-center">
-                <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">Crafted for the Visionary</h2>
-                <h3 class="text-4xl font-bold mb-12 leading-normal">
-                    Your Signature, Elevated
-                </h3>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-                    <div class="product-card p-8 border border-gray-700 rounded-lg shadow-lg">
-                        <h4 class="text-2xl font-bold mb-3">Modern Visionaries</h4>
-                        <p class="text-lg font-light leading-relaxed">
-                            For the discerning individual (25-45) who navigates the urban landscape with quiet power.
-                        </p>
+                <h2 class="section-title text-2xl font-light mb-12 uppercase tracking-widest text-accent">The Ritual of Application</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                    <div class="product-card p-10 bg-white/5 border border-white/10 rounded-sm">
+                        <div class="text-3xl mb-4 text-accent font-display">01. Mist</div>
+                        <p class="font-light opacity-70">Spray into the air before you and walk through the mist to let the particles settle evenly.</p>
                     </div>
-                    <div class="product-card p-8 border border-gray-700 rounded-lg shadow-lg">
-                        <h4 class="text-2xl font-bold mb-3">Understated Luxury</h4>
-                        <p class="text-lg font-light leading-relaxed">
-                            Appreciates substance over spectacle, depth over overt display.
-                        </p>
+                    <div class="product-card p-10 bg-white/5 border border-white/10 rounded-sm">
+                        <div class="text-3xl mb-4 text-accent font-display">02. Pulse</div>
+                        <p class="font-light opacity-70">Apply directly to pulse points: wrists, behind ears, and the base of the throat for heat-driven diffusion.</p>
                     </div>
-                    <div class="product-card p-8 border border-gray-700 rounded-lg shadow-lg">
-                        <h4 class="text-2xl font-bold mb-3">Individuality</h4>
-                        <p class="text-lg font-light leading-relaxed">
-                            Seeks a scent that is deeply personal, a whisper of self, not a shout.
-                        </p>
+                    <div class="product-card p-10 bg-white/5 border border-white/10 rounded-sm">
+                        <div class="text-3xl mb-4 text-accent font-display">03. Linger</div>
+                        <p class="font-light opacity-70">Avoid rubbing the skin; let the essence dry naturally to preserve the integrity of the top notes.</p>
+                    </div>
+                    <div class="product-card p-10 bg-white/5 border border-white/10 rounded-sm">
+                        <div class="text-3xl mb-4 text-accent font-display">04. Signature</div>
+                        <p class="font-light opacity-70">Seeks a scent that is deeply personal, a whisper of self, not a shout.</p>
                     </div>
                 </div>
             </div>
@@ -162,7 +181,7 @@
                 <h3 class="text-4xl font-bold mb-12 leading-normal">
                     A Symphony of Night Blooms and Shadows
                 </h3>
-                <div class="relative section-to-reveal">
+                <div class="relative relative z-10">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
                         <div class="text-left">
                             <h4 class="text-3xl font-bold mb-6 leading-tight">
@@ -176,24 +195,46 @@
                             </p>
                         </div>
                         <div class="flex justify-center">
-                            <img src="./images/noir-essence-detail.png" alt="Fragrance Notes Detail" class="w-full max-w-md rounded-lg shadow-xl">
+                            <img src="https://cdn.shopify.com/s/files/1/0673/2664/0426/files/FragranceFamiliesFloralsAmbersWoodyFreshOrientalPerfumes.jpg?v=1721896460" alt="Fragrance Notes Detail" class="w-full max-w-md rounded-lg shadow-xl">
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="section-wrapper py-24 px-8">
+        <section class="section-wrapper py-24 px-8 relative z-10">
+            <div class="max-w-6xl mx-auto">
+                <h2 class="section-title text-center mb-16 text-accent">The Nocturnal Journal</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <article class="group cursor-pointer">
+                        <div class="mb-6 overflow-hidden rounded-sm aspect-video">
+                            <img src="https://observer.com/wp-content/uploads/sites/2/2023/04/GettyImages-600029363.jpg?quality=80" alt="The Art of Scent" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">The Art of Olfactory Shadow</h4>
+                        <p class="opacity-70">Exploring the deep connection between scent and memory in the twilight hours.</p>
+                    </article>
+                    <article class="group cursor-pointer">
+                        <div class="mb-6 overflow-hidden rounded-sm aspect-video">
+                            <img src="https://blog.mountainroseherbs.com/hs-fs/hubfs/Blog%20images/New%20Moon%20Roll%20On-Horizontal.jpg?width=900&height=600&name=New%20Moon%20Roll%20On-Horizontal.jpg" alt="The Extraction" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000">
+                        </div>
+                        <h4 class="text-2xl font-bold mb-4">Lunar Extraction Methods</h4>
+                        <p class="opacity-70">How we capture the peak essence of night-blooming botanicals under the new moon.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-wrapper py-24 px-8 relative z-10">
             <div class="max-w-4xl mx-auto text-center">
                 <h2 class="section-title text-2xl font-light mb-4 uppercase tracking-widest">Where to Experience</h2>
                 <h3 class="text-4xl font-bold mb-12 leading-normal">
                     Find Your Shadow
                 </h3>
                 <p class="text-xl font-light leading-relaxed">
-                    Noir Essence is available through select online channels and our curated retail partners. We invite you to experience the depth and mystique in person.
+                    Noir Essence is available through select online channels and our curated retail partners in New York, Paris, and Tokyo. We invite you to experience the depth and mystique in person.
                 </p>
                 <div class="mt-12">
-                    <a href="#contact" class="cta-btn inline-block py-3 px-8 border-2 border-accent text-accent font-semibold text-lg tracking-wide rounded-full hover:bg-accent hover:text-primary transition-all duration-500">
+                    <a href="contact.html" class="cta-btn inline-block py-3 px-8 border-2 border-accent text-accent font-semibold text-lg tracking-wide rounded-full hover:bg-accent hover:text-primary transition-all duration-500">
                         Inquire About Availability
                     </a>
                 </div>
@@ -205,7 +246,7 @@
     <footer class="relative z-10 py-12 px-8 border-t border-gray-700">
         <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0">
             <div class="text-center md:text-left">
-                <p class="text-lg font-light">&copy; 2024 Noir Essence. All rights reserved.</p>
+                <p>&copy; <span id="year"></span> Noir Essence. All rights reserved. Crafted from shadows.</p>
             </div>
             <div class="flex space-x-6">
                 <a href="https://www.instagram.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="footer-link text-secondary text-lg font-light tracking-wide hover:text-accent transition-colors">Instagram</a>
@@ -215,122 +256,83 @@
     </footer>
 
     <script>
-        gsap.registerPlugin(ScrollTrigger, SplitText);
+        gsap.registerPlugin(ScrollTrigger);
+
+        // SplitText Polyfill for GSAP
+        const SplitText = {
+            create: (selector, vars) => {
+                document.querySelectorAll(selector).forEach(el => {
+                    const text = el.textContent.trim();
+                    el.innerHTML = '';
+                    const chars = [];
+                    text.split(/\s+/).forEach((word, i, arr) => {
+                        const wordSpan = document.createElement('span');
+                        wordSpan.style.display = 'inline-block';
+                        wordSpan.style.whiteSpace = 'nowrap';
+                        [...word].forEach(char => {
+                            const charSpan = document.createElement('span');
+                            charSpan.textContent = char;
+                            charSpan.style.display = 'inline-block';
+                            wordSpan.appendChild(charSpan);
+                            chars.push(charSpan);
+                        });
+                        el.appendChild(wordSpan);
+                        if (i < arr.length - 1) {
+                            const space = document.createElement('span');
+                            space.innerHTML = '&nbsp;';
+                            space.style.display = 'inline-block';
+                            el.appendChild(space);
+                        }
+                    });
+                    if (vars.onSplit) vars.onSplit({ chars, elements: [el] });
+                });
+            }
+        };
 
         const lenis = new Lenis();
         lenis.on('scroll', ScrollTrigger.update);
         gsap.ticker.add((time) => lenis.raf(time * 1000));
         gsap.ticker.lagSmoothing(0);
 
-        const canvas = document.getElementById('filmCanvas');
-        const ctx = canvas.getContext('2d');
-        const totalFrames = 192;
-        const frames = [];
-        let currentFrame = 0;
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuOverlay = document.getElementById('menu-overlay');
 
-        function resizeCanvas() {
-          canvas.width = window.innerWidth;
-          canvas.height = window.innerHeight;
-          drawFrame(currentFrame);
+        function toggleMenu() {
+            mobileMenu.classList.toggle('translate-x-full');
+            menuOverlay.classList.toggle('hidden');
         }
 
-        function drawFrame(index) {
-          const img = frames[index];
-          if (!img || !img.complete) return;
-          const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
-          const x = (canvas.width - img.naturalWidth * scale) / 2;
-          const y = (canvas.height - img.naturalHeight * scale) / 2;
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
-          ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
-        }
+        menuToggle.addEventListener('click', toggleMenu);
+        menuClose.addEventListener('click', toggleMenu);
+        menuOverlay.addEventListener('click', toggleMenu);
 
-        function preloadFrames() {
-          let loaded = 0;
-          for (let i = 1; i <= totalFrames; i++) {
-            const img = new Image();
-            img.src = `./frames/${String(i).padStart(4, '0')}.jpg`;
-            img.onload = () => {
-              loaded++;
-              if (loaded === 1) {
-                resizeCanvas();
-              }
-              if (loaded === totalFrames) {
-                console.log('All frames preloaded.');
-              }
-            };
-            img.onerror = () => {
-              console.error(`Failed to load frame: ./frames/${String(i).padStart(4, '0')}.jpg`);
-            };
-            frames[i - 1] = img;
-          }
-        }
-
-        preloadFrames();
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        gsap.to({ frame: 0 }, {
-          frame: totalFrames - 1,
-          snap: "frame",
-          ease: "none",
-          scrollTrigger: {
-            trigger: "body",
-            start: "top top",
-            end: () => "+=" + (window.innerHeight * 3), // Adjusted end for longer animation
-            scrub: 0.5,
-          },
-          onUpdate: function() {
-            currentFrame = Math.round(this.targets()[0].frame);
-            drawFrame(currentFrame);
-          }
+        // Close menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', toggleMenu);
         });
 
-        // PAGE ENTRANCE TIMELINE
-        const pageLoadTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
-        pageLoadTimeline.from("header", { y: -80, autoAlpha: 0, duration: 0.8 })
-                      .from(".eyebrow", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
-                      .from(".subtitle", { y: 40, autoAlpha: 0, duration: 0.6 }, "-=0.4")
-                      .from(".cta-btn", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+        // Dynamic Year
+        document.getElementById('year').textContent = new Date().getFullYear();
 
-        // SPLITTEXT ON ALL HEADLINES
-        SplitText.create("h1, h2, h3", {
-          type: "chars, words",
-          mask: "chars",
-          autoSplit: true,
-          onSplit(self) {
-            gsap.from(self.chars, {
-              y: 100,
-              autoAlpha: 0,
-              stagger: 0.03,
-              duration: 0.8,
-              ease: "back.out(1.7)",
-              scrollTrigger: { trigger: self.elements[0], start: "top 85%", once: true }
+        // SLOW TEXT APPEARANCE (Fade-in stagger)
+        gsap.utils.toArray('h1, h2, h3, .section-wrapper p, .product-card').forEach(el => {
+            gsap.from(el, {
+                y: 30,
+                opacity: 0,
+                duration: 1.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    once: true
+                }
             });
-          }
         });
 
-        // SCROLLTRIGGER.BATCH FOR ALL CARD GRIDS
-        ScrollTrigger.batch(".product-card", {
-          onEnter: batch => gsap.from(batch, {
-            opacity: 0,
-            y: 60,
-            scale: 0.95,
-            stagger: 0.15,
-            duration: 0.8,
-            ease: "power3.out"
-          }),
-          once: true
-        });
-
-        // CLIP-PATH SECTION REVEALS
-        gsap.from(".section-to-reveal", {
-          clipPath: "inset(100% 0% 0% 0%)",
-          duration: 1.2,
-          ease: "power4.inOut",
-          scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
-        });
-
-        // MAGNETIC CTA BUTTONS
+        // Magnetic CTA Buttons
         document.querySelectorAll(".cta-btn").forEach(btn => {
           btn.addEventListener("mousemove", (e) => {
             const rect = btn.getBoundingClientRect();
