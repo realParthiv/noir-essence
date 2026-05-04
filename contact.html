@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Noir Essence - Contact</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/SplitText.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+    <style>
+        :root {
+            --color-primary: #0c0c0c;
+            --color-secondary: #111111;
+            --color-accent: #c9a84c;
+            --color-text: #f5e6c8;
+            --font-display: 'Playfair Display', serif;
+            --font-body: 'Roboto', sans-serif;
+        }
+        body {
+            background-color: var(--color-primary);
+            color: var(--color-text);
+            font-family: var(--font-body);
+            overflow: hidden; /* Prevent default scrollbar as Lenis handles it */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-display);
+        }
+        .canvas-wrap {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            background-color: var(--color-primary);
+        }
+        canvas {
+            display: block;
+        }
+        .content-wrapper {
+            position: relative;
+            z-index: 10;
+        }
+        .nav-link {
+            position: relative;
+            color: var(--color-text);
+            transition: color 0.3s ease;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--color-accent);
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover {
+            color: var(--color-accent);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .cta-btn {
+            border: 1px solid var(--color-accent);
+            color: var(--color-accent);
+            transition: transform 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+        .cta-btn:hover {
+            color: var(--color-primary);
+            background-color: var(--color-accent);
+        }
+        .input-field {
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: var(--color-accent);
+            box-shadow: 0 0 0 2px var(--color-accent);
+        }
+        .section-to-reveal {
+            position: relative; /* Needed for clip-path to work correctly */
+        }
+    </style>
+</head>
+<body>
+    <div class="canvas-wrap"><canvas id="filmCanvas"></canvas></div>
+
+    <header class="content-wrapper w-full py-6 px-8 fixed top-0 left-0 z-50">
+        <nav class="flex justify-between items-center">
+            <a href="index.html" class="text-2xl font-bold tracking-widest text-color-text hover:text-color-accent transition-colors duration-300">NOIR ESSENCE</a>
+            <ul class="flex space-x-8">
+                <li><a href="index.html" class="nav-link text-lg">Home</a></li>
+                <li><a href="product.html" class="nav-link text-lg">Collection</a></li>
+                <li><a href="about.html" class="nav-link text-lg">About</a></li>
+                <li><a href="contact.html" class="nav-link text-lg font-semibold">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="content-wrapper pt-32 pb-24">
+        <section class="relative min-h-screen flex flex-col items-center justify-center text-center px-4">
+            <div class="text-container w-full max-w-4xl mx-auto">
+                <h1 class="text-6xl md:text-8xl font-bold leading-tight mb-6" data-split-target="h1">Where Shadows Meet You</h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-12" data-split-target="p">Your story is our next creation. Reach out to us for inquiries, collaborations, or to simply share the allure of the night.</p>
+                <a href="#contact-form" class="cta-btn px-8 py-3 text-lg font-medium rounded-full inline-block transition-all duration-300 hover:scale-105">Begin Your Enigma</a>
+            </div>
+        </section>
+
+        <section id="contact-form" class="relative py-24 px-4 section-to-reveal">
+            <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="form-container">
+                    <h2 class="text-5xl font-bold mb-8" data-split-target="h2">Whisper Your Intentions</h2>
+                    <form action="https://api.web3forms.com/submit" method="POST" class="space-y-6">
+                        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY">
+                        <div>
+                            <label for="name" class="block text-lg mb-2 opacity-70">Your Name</label>
+                            <input type="text" id="name" name="name" required class="w-full py-3 px-4 rounded-lg input-field focus:outline-none text-color-text::placeholder">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-lg mb-2 opacity-70">Your Email</label>
+                            <input type="email" id="email" name="email" required class="w-full py-3 px-4 rounded-lg input-field focus:outline-none text-color-text::placeholder">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-lg mb-2 opacity-70">Your Message</label>
+                            <textarea id="message" name="message" rows="8" required class="w-full py-3 px-4 rounded-lg input-field focus:outline-none text-color-text::placeholder"></textarea>
+                        </div>
+                        <button type="submit" class="cta-btn px-12 py-4 text-lg font-medium rounded-full w-full lg:w-auto">Send Reverie</button>
+                    </form>
+                </div>
+                <div class="contact-info-container flex flex-col justify-center">
+                    <h3 class="text-4xl font-bold mb-6">Connect in the Shadows</h3>
+                    <p class="text-xl mb-8 leading-relaxed opacity-70">
+                        For the discerning, the curious, and the seekers of the extraordinary. We await your call from the veil of night.
+                    </p>
+                    <div class="mb-6">
+                        <p class="text-xl font-semibold mb-2">Email</p>
+                        <a href="mailto:contact@noir-essence.com" class="text-xl text-color-accent hover:underline">contact@noir-essence.com</a>
+                    </div>
+                    <div class="mb-6">
+                        <p class="text-xl font-semibold mb-2">Follow Us</p>
+                        <div class="flex space-x-6">
+                            <a href="https://www.instagram.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="text-color-accent hover:text-white transition-colors duration-300">Instagram</a>
+                            <a href="https://www.facebook.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="text-color-accent hover:text-white transition-colors duration-300">Facebook</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="content-wrapper relative py-12 px-8 text-center text-gray-400 text-sm">
+        <p>&copy; 2023 Noir Essence. All rights reserved. Crafted from shadows.</p>
+        <div class="flex justify-center space-x-6 mt-4">
+            <a href="https://www.instagram.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="hover:text-color-accent transition-colors duration-300">Instagram</a>
+            <a href="https://www.facebook.com/noir.essence/" target="_blank" rel="noopener noreferrer" class="hover:text-color-accent transition-colors duration-300">Facebook</a>
+        </div>
+    </footer>
+
+    <script>
+        const lenis = new Lenis();
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => lenis.raf(time * 1000));
+        gsap.ticker.lagSmoothing(0);
+
+        gsap.registerPlugin(ScrollTrigger, SplitText);
+
+        // Canvas Animation
+        const canvas = document.getElementById('filmCanvas');
+        const ctx = canvas.getContext('2d');
+        const totalFrames = 192;
+        const frames = [];
+        let currentFrame = 0;
+
+        function resizeCanvas() {
+          canvas.width = window.innerWidth;
+          canvas.height = window.innerHeight;
+          drawFrame(currentFrame);
+        }
+
+        function drawFrame(index) {
+          const img = frames[index];
+          if (!img || !img.complete) return;
+          const scale = Math.max(canvas.width / img.naturalWidth, canvas.height / img.naturalHeight);
+          const x = (canvas.width - img.naturalWidth * scale) / 2;
+          const y = (canvas.height - img.naturalHeight * scale) / 2;
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
+        }
+
+        function preloadFrames() {
+          let loaded = 0;
+          for (let i = 1; i <= totalFrames; i++) {
+            const img = new Image();
+            img.src = `./frames/${String(i).padStart(4, '0')}.jpg`;
+            img.onload = () => {
+                loaded++;
+                if (loaded === 1) {
+                    resizeCanvas();
+                }
+            };
+            img.onerror = () => {
+                console.error(`Failed to load frame: ./frames/${String(i).padStart(4, '0')}.jpg`);
+                loaded++; // Still count as loaded to not block indefinitely
+                if (loaded === totalFrames) {
+                    resizeCanvas();
+                }
+            };
+            frames[i - 1] = img;
+          }
+        }
+
+        preloadFrames();
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        gsap.to({ frame: 0 }, {
+          frame: totalFrames - 1,
+          snap: "frame",
+          ease: "none",
+          scrollTrigger: {
+            trigger: "body",
+            start: "top top",
+            end: () => "+=" + (window.innerHeight * 4), // Adjust scroll duration as needed
+            scrub: 0.5,
+            pin: true // Pin the canvas to the viewport during animation
+          },
+          onUpdate: function() {
+            currentFrame = Math.round(this.targets()[0].frame);
+            drawFrame(currentFrame);
+          }
+        });
+
+        // Page Entrance Timeline
+        const pageEntranceTimeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+
+        pageEntranceTimeline.from("header nav", { y: -80, autoAlpha: 0, duration: 0.8 })
+                          .from(".text-container p[data-split-target='p']", { y: 30, autoAlpha: 0, duration: 0.6 }, "-=0.4")
+                          .from(".text-container a.cta-btn", { y: 30, autoAlpha: 0, scale: 0.9, duration: 0.6 }, "-=0.3");
+
+        // SplitText on Headlines
+        SplitText.create("h1, h2", {
+          type: "chars, words",
+          mask: "chars",
+          autoSplit: true,
+          onSplit(self) {
+            gsap.from(self.chars, {
+              y: 100,
+              autoAlpha: 0,
+              stagger: 0.03,
+              duration: 0.8,
+              ease: "back.out(1.7)",
+              scrollTrigger: { trigger: self.elements[0], start: "top 85%", once: true }
+            });
+          }
+        });
+
+        // Clip-path Section Reveals
+        gsap.from(".section-to-reveal", {
+          clipPath: "inset(100% 0% 0% 0%)",
+          duration: 1.2,
+          ease: "power4.inOut",
+          scrollTrigger: { trigger: ".section-to-reveal", start: "top 80%", once: true }
+        });
+
+        // Magnetic CTA Buttons
+        document.querySelectorAll(".cta-btn").forEach(btn => {
+          btn.addEventListener("mousemove", (e) => {
+            const rect = btn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(btn, { x: x * 0.3, y: y * 0.3, duration: 0.3, ease: "power2.out" });
+          });
+          btn.addEventListener("mouseleave", () => {
+            gsap.to(btn, { x: 0, y: 0, duration: 0.5, ease: "elastic.out(1, 0.3)" });
+          });
+        });
+
+        // Add magnetic effect to input fields as well for a subtle luxurious feel
+        document.querySelectorAll(".input-field").forEach(input => {
+            input.addEventListener("mousemove", (e) => {
+                const rect = input.getBoundingClientRect();
+                const x = e.clientX - rect.left - rect.width / 2;
+                const y = e.clientY - rect.top - rect.height / 2;
+                gsap.to(input, { x: x * 0.05, y: y * 0.05, duration: 0.2, ease: "power2.out" });
+            });
+            input.addEventListener("mouseleave", () => {
+                gsap.to(input, { x: 0, y: 0, duration: 0.3, ease: "power2.out" });
+            });
+        });
+
+        // Initialize Lenis
+        lenis.start();
+    </script>
+</body>
+</html>

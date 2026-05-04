@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "site_name": "noir-essence",
+    "subject": "Noir Essence Fragrance",
+    "about_summary": "Noir Essence crafts 'liquid shadows,' unique fragrances for modern visionaries. Our scents, born from moonlit moments, blend ancient wisdom with modern design for an understated, sophisticated, and deeply personal signature.",
+    "email": "contact@noir-essence.com"
+  },
+  "theme": {
+    "mood": "luxury",
+    "primary_color": "#000000",
+    "font_display": "Playfair Display",
+    "font_body": "Roboto"
+  },
+  "creativeDirection": {
+    "personality": "luxurious, mysterious, sophisticated, modern",
+    "moodKeywords": [
+      "dark",
+      "velvet",
+      "midnight",
+      "shadows",
+      "whisper"
+    ],
+    "avoidPatterns": [
+      "bright colors",
+      "loud patterns",
+      "overly playful imagery"
+    ],
+    "inspirationReference": "The feeling of liquid shadows, midnight air, the texture of heavy silk, hushed secrets."
+  },
+  "pages": [
+    "index",
+    "product",
+    "about",
+    "contact"
+  ],
+  "featured_items": [
+    {
+      "title": "Noir Essence Signature Scent",
+      "description": "A unique fragrance that evolves with skin chemistry, offering a multi-sensory depth of smoky agarwood, black roses, and dark cacao."
+    }
+  ],
+  "product": {
+    "name": "Noir Essence",
+    "tagline": "Liquid Shadows for the Modern Visionary",
+    "price_range": "Premium",
+    "where_to_buy": "Online, Retail",
+    "sensory_description": "Experience liquid shadows: crisp midnight air, smoky agarwood, velvet black roses. Feels like weightless heavy silk, warming to a rich, resinous glow. Evokes bittersweet dark cacao and spices, a whispered secret of amber and musk.",
+    "origin_story": "Born from a quest to bottle the scent of a moonlit world where cold air meets warm shadows. Our philosophy: true elegance lingers. We blend ancient botanical wisdom with modern sensory design to capture the raw, dark beauty of the night.",
+    "target_customer": "Modern visionaries (25-45), creative professionals, urban sophisticates valuing understated luxury, intellectual depth, substance, minimalism, quiet power, and individuality."
+  },
+  "services": [],
+  "social_links": [
+    {
+      "platform": "Instagram",
+      "url": "https://www.instagram.com/noir.essence/"
+    },
+    {
+      "platform": "Facebook",
+      "url": "https://www.facebook.com/noir.essence/"
+    }
+  ],
+  "framesPath": "./frames/",
+  "frameCount": 192
+}
